@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Комментарии — Методический кластер</title>
+  <style>
+    :root{
+      /* Matched to screenshot (dark navy + beige) */
+      --navy:#0f1226;
+      --navy-2:#171a31;
+      --navy-3:#202543;
+      --gold:#e7d9bc;
+      --gold-2:#d7ccb3;
+      --gold-3:#cdbf9f;
+      --line:#595b67;
+      --ink:#111323;
+      --panel-text:#1b2035;
+      --panel-soft:#f6f1e7;
+      --success:#2ea35e;
+      --danger:#c23b35;
+      --shadow:0 16px 35px rgba(0,0,0,.28);
+      --soft-shadow:0 8px 18px rgba(0,0,0,.14);
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ margin:0; padding:0; }
+    body{
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(900px 380px at 50% -120px, rgba(255,255,255,.04), transparent 60%),
+        var(--navy);
+      color: var(--gold);
+      line-height:1.35;
+    }
+
+    .page{
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 14px 14px 24px;
+    }
+
+    /* ===== Top ===== */
+    .topbar{
+      display:grid;
+      grid-template-columns: auto 1fr auto;
+      align-items:center;
+      gap:12px;
+      padding: 6px 2px 10px;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .topbar-left, .topbar-right{
+      display:flex;
+      gap:26px;
+      align-items:center;
+      white-space: nowrap;
+    }
+    .topbar a{
+      color: var(--gold);
+      text-decoration:none;
+      opacity:.96;
+    }
+    .topbar a:hover{ text-decoration:underline; }
+    .topbar-center{
+      text-align:center;
+      font-size: clamp(15px, 2vw, 21px);
+      letter-spacing: .2px;
+      font-weight: 800;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .header-line{
+      height:10px;
+      background: var(--line);
+      opacity:.9;
+      margin-bottom: 16px;
+    }
+
+    /* ===== Hero ===== */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items:center;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 900px){
+      .hero{
+        grid-template-columns: 420px 1fr;
+        gap: 18px;
+      }
+    }
+
+    .hero-logo-wrap{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height: 220px;
+    }
+    .hero-logo{
+      width: min(300px, 64vw);
+      aspect-ratio:1/1;
+      object-fit:contain;
+      border-radius:50%;
+      filter:
+        drop-shadow(0 0 28px rgba(255,255,255,.24))
+        drop-shadow(0 18px 24px rgba(0,0,0,.36));
+    }
+
+    .hero-title{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:10px;
+      padding: 8px 4px;
+    }
+    .hero-kicker{
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .hero-h1{
+      margin:0;
+      font-size: clamp(28px, 4.2vw, 58px);
+      line-height: 1.05;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing:.1px;
+    }
+
+    /* ===== Main beige panel ===== */
+    .panel{
+      background: var(--gold-2);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .panel-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+
+    @media (min-width: 980px){
+      .panel-grid{
+        grid-template-columns: 320px 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* ===== Lesson menu ===== */
+    .lesson-menu{
+      padding: 6px 4px;
+      display:grid;
+      gap: 10px;
+      align-content:start;
+    }
+
+    .lesson-row{
+      display:grid;
+      grid-template-columns: 56px 1fr;
+      gap: 10px;
+      align-items:center;
+    }
+
+    .lesson-icon-box{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:56px;
+    }
+
+    .lesson-icon{
+      width:40px;
+      height:40px;
+      object-fit:contain;
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,.18));
+    }
+
+    .lesson-btn{
+      border:none;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 999px;
+      min-height: 52px;
+      padding: 10px 16px;
+      text-align:center;
+      font-weight: 800;
+      font-size: 14px;
+      cursor:pointer;
+      box-shadow: 0 10px 18px rgba(0,0,0,.22);
+      transition: transform .12s ease, background-color .12s ease, box-shadow .12s ease;
+    }
+    .lesson-btn:hover{
+      background: var(--navy-2);
+      transform: translateY(-1px);
+    }
+    .lesson-btn.active{
+      background: linear-gradient(180deg, #1a1d34 0%, #0f1226 100%);
+      box-shadow:
+        0 0 0 2px rgba(231,217,188,.26) inset,
+        0 12px 18px rgba(0,0,0,.25);
+    }
+
+    /* Mobile lesson menu */
+    @media (max-width: 979px){
+      .lesson-menu{
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 10px;
+      }
+      .lesson-row{
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .lesson-icon-box{ min-height:auto; }
+      .lesson-icon{ width:30px; height:30px; }
+      .lesson-btn{
+        min-height: 46px;
+        border-radius: 16px;
+        font-size: 13px;
+      }
+    }
+
+    /* ===== Content ===== */
+    .content-box{
+      display:grid;
+      gap: 12px;
+      min-width:0;
+    }
+
+    .comment-block{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(17,19,35,.08);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .comment-title,
+    .comments-lesson{
+      margin:0;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+
+    .form-grid{ display:grid; gap:10px; }
+    .field{ display:grid; gap:5px; }
+
+    .label{
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing:.2px;
+    }
+
+    .input, .textarea{
+      width:100%;
+      border:1px solid rgba(17,19,35,.18);
+      background: var(--panel-soft);
+      color: var(--panel-text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font: inherit;
+      outline:none;
+    }
+
+    .input:focus, .textarea:focus{
+      border-color: rgba(17,19,35,.35);
+      box-shadow: 0 0 0 3px rgba(17,19,35,.08);
+    }
+
+    .textarea{
+      min-height: 96px;
+      resize: vertical;
+      line-height:1.35;
+    }
+
+    .form-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mini{
+      color: rgba(17,19,35,.78);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .send-btn{
+      border:none;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 999px;
+      padding: 10px 16px;
+      min-height: 44px;
+      font-weight: 800;
+      cursor:pointer;
+      box-shadow: 0 8px 14px rgba(0,0,0,.20);
+      transition: transform .12s ease, background .12s ease;
+    }
+    .send-btn:hover{ background: var(--navy-2); transform: translateY(-1px); }
+    .send-btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+
+    .status{
+      min-height: 16px;
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .status.ok{ color: var(--success); }
+    .status.err{ color: var(--danger); }
+
+    .comments-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:8px;
+      flex-wrap:wrap;
+    }
+
+    .comments-meta{
+      border:1px solid rgba(17,19,35,.12);
+      background: rgba(255,255,255,.45);
+      color: rgba(17,19,35,.86);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .comments-list{
+      display:grid;
+      gap: 10px;
+      min-height: 120px;
+      align-content:start;
+    }
+
+    .comment{
+      background: var(--panel-soft);
+      border: 1px solid rgba(17,19,35,.12);
+      border-radius: 14px;
+      padding: 10px 12px;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .comment.newly-added{
+      animation: commentFade .18s ease-out;
+    }
+
+    @keyframes commentFade{
+      from{ opacity:0; transform: translateY(4px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+
+    .comment-top{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      margin-bottom:4px;
+    }
+
+    .comment-name{
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .comment-time{
+      color: rgba(17,19,35,.65);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .comment-text{
+      color: #232743;
+      font-size: 14px;
+      line-height:1.35;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .empty{
+      border:1px dashed rgba(17,19,35,.22);
+      background: rgba(248,244,236,.75);
+      border-radius: 12px;
+      padding: 12px;
+      color: rgba(17,19,35,.75);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    /* ===== Full-screen reload overlay ===== */
+    .reload-overlay{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15,18,38,.82);
+      backdrop-filter: blur(4px);
+    }
+
+    .reload-overlay.show{
+      display: flex;
+      animation: overlayFadeIn .15s ease-out;
+    }
+
+    @keyframes overlayFadeIn{
+      from{ opacity:0; }
+      to{ opacity:1; }
+    }
+
+    .reload-box{
+      width: min(92vw, 360px);
+      background: var(--gold-2);
+      color: var(--ink);
+      border: 1px solid rgba(17,19,35,.14);
+      border-radius: 18px;
+      padding: 18px 16px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.28);
+      text-align: center;
+    }
+
+    .reload-spinner{
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      border: 4px solid rgba(17,19,35,.18);
+      border-top-color: var(--navy);
+      animation: spin .9s linear infinite;
+    }
+
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+
+    .reload-title{
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .reload-sub{
+      font-weight: 700;
+      font-size: 13px;
+      color: rgba(17,19,35,.78);
+    }
+
+    /* ===== Mobile ===== */
+    @media (max-width: 640px){
+      .page{ padding:10px 10px 18px; }
+
+      .topbar{
+        grid-template-columns: 1fr;
+        gap:6px;
+        font-size:12px;
+      }
+      .topbar-left, .topbar-right{
+        justify-content:center;
+        gap:16px;
+      }
+      .topbar-center{
+        order:-1;
+        white-space: normal;
+        line-height: 1.15;
+      }
+
+      .header-line{ height:6px; margin-bottom: 10px; }
+      .panel{ padding:10px; }
+
+      .comment-title, .comments-lesson{ font-size:16px; }
+
+      .form-row{ align-items:stretch; }
+      .send-btn{ width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header>
+      <div class="topbar">
+        <div class="topbar-left">
+          <a href="https://metodklasterppkggtu.tilda.ws/" target="_blank" rel="noopener noreferrer">О проекте</a>
+          <a href="https://metodklasterppkggtu.tilda.ws/" target="_blank" rel="noopener noreferrer">Распоряжение</a>
+        </div>
+        <div class="topbar-center">ПРОФЕССИОНАЛЬНО-ПЕДАГОГИЧЕСКИЙ КОЛЛЕДЖ ГГТУ</div>
+        <div class="topbar-right">
+          <a href="https://metodklasterppkggtu.tilda.ws/" target="_blank" rel="noopener noreferrer">Контакты</a>
+        </div>
+      </div>
+      <div class="header-line"></div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-logo-wrap">
+        <!-- Put your round logo image here -->
+        <img class="hero-logo" src="./img/logo-cluster.png" alt="Логотип" onerror="this.style.visibility='hidden'">
+      </div>
+      <div class="hero-title">
+        <div class="hero-kicker">Методическая деятельность ППК ГГТУ 2025/2026</div>
+        <h1 class="hero-h1">Методический кластер<br>«Комментарии к занятиям»</h1>
+      </div>
+    </section>
+
+    <main class="panel">
+      <div class="panel-grid">
+        <!-- LEFT LESSON BUTTONS -->
+        <aside class="lesson-menu" id="lessonButtons"></aside>
+
+        <!-- RIGHT CONTENT -->
+        <section>
+          <div class="content-box">
+            <div class="comment-block">
+              <h2 class="comment-title" id="formTitle">Оставить комментарий • L1</h2>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label class="label" for="nameInput">Имя / Ник</label>
+                  <input id="nameInput" class="input" type="text" maxlength="60" placeholder="Необязательно">
+                </div>
+
+                <div class="field">
+                  <label class="label" for="commentInput">Комментарий</label>
+                  <textarea id="commentInput" class="textarea" maxlength="1000" placeholder="Напишите комментарий..."></textarea>
+                </div>
+
+                <div class="form-row">
+                  <div class="mini">Ctrl + Enter</div>
+                  <button id="sendBtn" class="send-btn" type="button">Отправить</button>
+                </div>
+              </div>
+
+              <div id="status" class="status"></div>
+            </div>
+
+            <div class="comment-block">
+              <div class="comments-head">
+                <h2 class="comments-lesson" id="currentLessonTitle">L1</h2>
+                <div class="comments-meta" id="metaInfo">0 • 3с</div>
+              </div>
+              <div id="comments" class="comments-list"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Full-screen send/reload animation -->
+  <div id="reloadOverlay" class="reload-overlay" aria-hidden="true">
+    <div class="reload-box">
+      <div class="reload-spinner"></div>
+      <div class="reload-title">Комментарий отправляется</div>
+      <div class="reload-sub" id="reloadSub">Обновляем страницу… 4с</div>
+    </div>
+  </div>
+
+  <script>
+    // =========================
+    // CONFIG (your real links/fields)
+    // =========================
+    const CONFIG = {
+      formAction: "https://docs.google.com/forms/d/e/1FAIpQLSdd28t0n2GXXOv4XOMUr-WAiRpSlBdCv6sfolVbJSFzyFf8Fg/formResponse",
+      csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT5jBEeKrtDo-uyk9Cwtvsy9u9APjAnnlzdlc4ACfQThH_vcawSFdiwgb5Gg9XHU-_G40b8Eb_FOY00/pub?gid=453751927&single=true&output=csv",
+
+      fields: {
+        lesson: "entry.1563581279",
+        name: "entry.1299891478",
+        comment: "entry.1991102895"
+      },
+
+      lessons: ["L1", "L2", "L3", "L4", "L5", "L6"],
+      refreshMs: 3000,
+
+      // Put your icons in ./img/
+      icons: [
+        "./img/icon-users.png",
+        "./img/icon-cap.png",
+        "./img/icon-book.png",
+        "./img/icon-book-2.png"
+      ]
+    };
+
+    // =========================
+    // STATE
+    // =========================
+    let currentLesson = new URLSearchParams(location.search).get("lesson") || "L1";
+    if (!CONFIG.lessons.includes(currentLesson)) currentLesson = "L1";
+
+    let isLoading = false;
+    let lastServerSignature = "";   // prevents DOM work if data unchanged
+    let pollTimer = null;
+    const commentNodeMap = new Map(); // DOM reuse (no blinking)
+    const cacheKeyPrefix = "mk_comments_cache_";
+
+    // =========================
+    // DOM
+    // =========================
+    const lessonButtonsEl = document.getElementById("lessonButtons");
+    const formTitleEl = document.getElementById("formTitle");
+    const currentLessonTitleEl = document.getElementById("currentLessonTitle");
+    const metaInfoEl = document.getElementById("metaInfo");
+    const commentsEl = document.getElementById("comments");
+    const nameInputEl = document.getElementById("nameInput");
+    const commentInputEl = document.getElementById("commentInput");
+    const sendBtnEl = document.getElementById("sendBtn");
+    const statusEl = document.getElementById("status");
+    const reloadOverlayEl = document.getElementById("reloadOverlay");
+    const reloadSubEl = document.getElementById("reloadSub");
+
+    // =========================
+    // INIT
+    // =========================
+    renderLessonButtons();
+    updateLessonLabels();
+
+    // Fast local cache render first (no jump while fetching)
+    loadFromCache();
+
+    // Then server sync
+    loadComments(true);
+
+    pollTimer = setInterval(() => {
+      if (!document.hidden) loadComments(false);
+    }, CONFIG.refreshMs);
+
+    sendBtnEl.addEventListener("click", submitComment);
+    commentInputEl.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") submitComment();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) loadComments(false);
+    });
+
+    // =========================
+    // UI helpers
+    // =========================
+    function updateLessonLabels() {
+      formTitleEl.textContent = `Оставить комментарий • ${currentLesson}`;
+      currentLessonTitleEl.textContent = currentLesson;
+      setStatus("");
+    }
+
+    function setStatus(text, type = "") {
+      statusEl.textContent = text || "";
+      statusEl.className = "status" + (type ? " " + type : "");
+    }
+
+    function formatTime(value) {
+      if (!value) return "";
+      const d = new Date(value);
+      if (isNaN(d.getTime())) return String(value);
+      return d.toLocaleString("ru-RU");
+    }
+
+    function normalizeHeader(s) {
+      return String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+    }
+
+    function renderLessonButtons() {
+      lessonButtonsEl.innerHTML = "";
+
+      CONFIG.lessons.forEach((lesson, i) => {
+        const row = document.createElement("div");
+        row.className = "lesson-row";
+
+        const iconBox = document.createElement("div");
+        iconBox.className = "lesson-icon-box";
+
+        const img = document.createElement("img");
+        img.className = "lesson-icon";
+        img.alt = "";
+        img.src = CONFIG.icons[i % CONFIG.icons.length] || "";
+        img.onerror = () => { img.style.visibility = "hidden"; };
+        iconBox.appendChild(img);
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "lesson-btn" + (lesson === currentLesson ? " active" : "");
+        btn.textContent = lesson;
+
+        btn.addEventListener("click", () => {
+          if (lesson === currentLesson) return;
+
+          currentLesson = lesson;
+          lastServerSignature = "";
+          commentNodeMap.clear();
+
+          updateLessonLabels();
+          renderLessonButtons();
+
+          // Cached draw immediately, then network sync
+          loadFromCache();
+          loadComments(true);
+
+          const url = new URL(location.href);
+          url.searchParams.set("lesson", lesson);
+          history.replaceState({}, "", url.toString());
+        });
+
+        row.appendChild(iconBox);
+        row.appendChild(btn);
+        lessonButtonsEl.appendChild(row);
+      });
+    }
+
+    // =========================
+    // Submit comment -> Google Forms
+    // =========================
+    async function submitComment() {
+      const name = nameInputEl.value.trim();
+      const comment = commentInputEl.value.trim();
+
+      if (!comment) {
+        setStatus("Пустой комментарий.", "err");
+        commentInputEl.focus();
+        return;
+      }
+
+      sendBtnEl.disabled = true;
+      setStatus("Отправка...");
+
+      try {
+        const params = new URLSearchParams();
+        params.append(CONFIG.fields.lesson, currentLesson);
+        params.append(CONFIG.fields.name, name || "Anonymous");
+        params.append(CONFIG.fields.comment, comment);
+
+        await fetch(CONFIG.formAction, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+          },
+          body: params.toString()
+        });
+
+        commentInputEl.value = "";
+        setStatus("Отправлено.", "ok");
+
+        // Intentional UX flow: full-screen loader + hard page refresh feel
+        showReloadOverlayAndRefresh(4);
+        return;
+
+      } catch (e) {
+        console.error(e);
+        setStatus("Ошибка отправки.", "err");
+      } finally {
+        // On success overlay locks UI until reload; on error restore controls
+        if (!reloadOverlayEl.classList.contains("show")) {
+          sendBtnEl.disabled = false;
+          nameInputEl.disabled = false;
+          commentInputEl.disabled = false;
+        }
+      }
+    }
+
+    function showReloadOverlayAndRefresh(seconds = 4) {
+      try { clearInterval(pollTimer); } catch {}
+
+      sendBtnEl.disabled = true;
+      nameInputEl.disabled = true;
+      commentInputEl.disabled = true;
+
+      reloadOverlayEl.classList.add("show");
+      reloadOverlayEl.setAttribute("aria-hidden", "false");
+
+      let left = seconds;
+      reloadSubEl.textContent = `Обновляем страницу… ${left}с`;
+
+      const tick = setInterval(() => {
+        left -= 1;
+        if (left > 0) {
+          reloadSubEl.textContent = `Обновляем страницу… ${left}с`;
+        }
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(tick);
+
+        const url = new URL(location.href);
+        url.searchParams.set("lesson", currentLesson);
+        url.searchParams.set("_r", String(Date.now())); // cache-buster
+        location.replace(url.toString());
+      }, seconds * 1000);
+    }
+
+    // =========================
+    // Load comments from published CSV
+    // =========================
+    async function loadComments(force = false) {
+      if (isLoading) return;
+      isLoading = true;
+
+      try {
+        const url = CONFIG.csvUrl + (CONFIG.csvUrl.includes("?") ? "&" : "?") + "_ts=" + Date.now();
+        const res = await fetch(url, { cache: "no-store" });
+        const csvText = await res.text();
+
+        const rows = parseCSV(csvText);
+        if (!rows.length) {
+          renderComments([]);
+          return;
+        }
+
+        const headers = rows[0].map(normalizeHeader);
+        const dataRows = rows.slice(1);
+
+        // Auto-detect columns (fallback to default Forms order)
+        let idxTimestamp = headers.findIndex(h => h.includes("timestamp"));
+        let idxLesson = headers.findIndex(h => h.includes("lesson"));
+        let idxName = headers.findIndex(h => h.includes("name") || h.includes("nickname"));
+        let idxComment = headers.findIndex(h => h.includes("comment"));
+
+        if (idxTimestamp < 0) idxTimestamp = 0;
+        if (idxLesson < 0) idxLesson = 1;
+        if (idxName < 0) idxName = 2;
+        if (idxComment < 0) idxComment = 3;
+
+        const comments = [];
+        for (const row of dataRows) {
+          const lesson = String(row[idxLesson] || "").trim();
+          if (lesson !== currentLesson) continue;
+
+          const textComment = String(row[idxComment] || "").trim();
+          if (!textComment) continue;
+
+          comments.push({
+            timestamp: row[idxTimestamp] || "",
+            lesson,
+            name: String(row[idxName] || "").trim() || "Anonymous",
+            comment: textComment
+          });
+        }
+
+        // newest first
+        comments.reverse();
+
+        // If nothing changed -> no DOM updates at all
+        const signature = JSON.stringify(comments);
+        if (!force && signature === lastServerSignature) {
+          return;
+        }
+        lastServerSignature = signature;
+
+        saveToCache(comments);
+        renderComments(comments);
+
+      } catch (e) {
+        console.error("Load comments error:", e);
+        // keep current UI quietly
+      } finally {
+        isLoading = false;
+      }
+    }
+
+    // =========================
+    // Session cache (instant draw on reload / lesson switch)
+    // =========================
+    function getCacheKey() {
+      return cacheKeyPrefix + currentLesson;
+    }
+
+    function saveToCache(comments) {
+      try {
+        sessionStorage.setItem(getCacheKey(), JSON.stringify({
+          t: Date.now(),
+          comments
+        }));
+      } catch {}
+    }
+
+    function loadFromCache() {
+      try {
+        const raw = sessionStorage.getItem(getCacheKey());
+        if (!raw) {
+          renderComments([]);
+          return;
+        }
+        const parsed = JSON.parse(raw);
+        if (!parsed || !Array.isArray(parsed.comments)) {
+          renderComments([]);
+          return;
+        }
+        renderComments(parsed.comments);
+      } catch {
+        renderComments([]);
+      }
+    }
+
+    // =========================
+    // No-blink render (DOM patch only)
+    // =========================
+    function commentKey(c) {
+      return `${c.timestamp}__${c.name}__${c.comment}`;
+    }
+
+    function createCommentNode(c) {
+      const wrap = document.createElement("div");
+      wrap.className = "comment newly-added";
+
+      const top = document.createElement("div");
+      top.className = "comment-top";
+
+      const name = document.createElement("div");
+      name.className = "comment-name";
+
+      const time = document.createElement("div");
+      time.className = "comment-time";
+
+      const text = document.createElement("div");
+      text.className = "comment-text";
+
+      top.appendChild(name);
+      top.appendChild(time);
+      wrap.appendChild(top);
+      wrap.appendChild(text);
+
+      wrap._nameEl = name;
+      wrap._timeEl = time;
+      wrap._textEl = text;
+
+      wrap.addEventListener("animationend", () => {
+        wrap.classList.remove("newly-added");
+      }, { once: true });
+
+      updateCommentNode(wrap, c);
+      return wrap;
+    }
+
+    function updateCommentNode(node, c) {
+      const newName = c.name || "Anonymous";
+      const newTime = formatTime(c.timestamp);
+      const newText = c.comment || "";
+
+      if (node._nameEl.textContent !== newName) node._nameEl.textContent = newName;
+      if (node._timeEl.textContent !== newTime) node._timeEl.textContent = newTime;
+      if (node._textEl.textContent !== newText) node._textEl.textContent = newText;
+    }
+
+    function renderComments(comments) {
+      metaInfoEl.textContent = `${comments.length} • ${Math.round(CONFIG.refreshMs / 1000)}с`;
+
+      if (!comments.length) {
+        commentsEl.innerHTML = `<div class="empty">Нет комментариев</div>`;
+        commentNodeMap.clear();
+        return;
+      }
+
+      if (commentsEl.querySelector(".empty")) {
+        commentsEl.innerHTML = "";
+      }
+
+      const nextKeys = new Set();
+      const orderedNodes = [];
+
+      for (const c of comments) {
+        const key = commentKey(c);
+        nextKeys.add(key);
+
+        let node = commentNodeMap.get(key);
+        if (!node) {
+          node = createCommentNode(c);
+          commentNodeMap.set(key, node);
+        } else {
+          updateCommentNode(node, c);
+        }
+
+        orderedNodes.push(node);
+      }
+
+      // Remove deleted/obsolete
+      for (const [key, node] of commentNodeMap.entries()) {
+        if (!nextKeys.has(key)) {
+          node.remove();
+          commentNodeMap.delete(key);
+        }
+      }
+
+      // Reorder/insert without full rebuild
+      let cursor = commentsEl.firstChild;
+      for (const node of orderedNodes) {
+        if (node !== cursor) {
+          commentsEl.insertBefore(node, cursor);
+        } else {
+          cursor = cursor.nextSibling;
+        }
+      }
+
+      while (commentsEl.childNodes.length > orderedNodes.length) {
+        commentsEl.removeChild(commentsEl.lastChild);
+      }
+    }
+
+    // =========================
+    // CSV parser (quotes, commas, newlines)
+    // =========================
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let i = 0;
+      let inQuotes = false;
+
+      while (i < text.length) {
+        const ch = text[i];
+        const next = text[i + 1];
+
+        if (inQuotes) {
+          if (ch === '"' && next === '"') {
+            cell += '"';
+            i += 2;
+            continue;
+          }
+          if (ch === '"') {
+            inQuotes = false;
+            i++;
+            continue;
+          }
+          cell += ch;
+          i++;
+          continue;
+        }
+
+        if (ch === '"') {
+          inQuotes = true;
+          i++;
+          continue;
+        }
+
+        if (ch === ",") {
+          row.push(cell);
+          cell = "";
+          i++;
+          continue;
+        }
+
+        if (ch === "\r") {
+          if (next === "\n") {
+            row.push(cell);
+            rows.push(row);
+            row = [];
+            cell = "";
+            i += 2;
+          } else {
+            row.push(cell);
+            rows.push(row);
+            row = [];
+            cell = "";
+            i++;
+          }
+          continue;
+        }
+
+        if (ch === "\n") {
+          row.push(cell);
+          rows.push(row);
+          row = [];
+          cell = "";
+          i++;
+          continue;
+        }
+
+        cell += ch;
+        i++;
+      }
+
+      row.push(cell);
+      rows.push(row);
+
+      while (rows.length && rows[rows.length - 1].every(v => v === "")) {
+        rows.pop();
+      }
+
+      return rows;
+    }
+  </script>
+</body>
+</html>
