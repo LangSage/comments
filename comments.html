@@ -1,745 +1,1128 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>2-Number Randomizer (No Repeats)</title>
-
-  <!-- Bootstrap 5.0.2 (your preferred CDN) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>митапы — Лучшие педагогические практики ППК ГГТУ 2025/2026</title>
   <style>
     :root{
-      --bg1:#0f1220;
-      --bg2:#151a2e;
-      --card:#0b1020cc;
-      --stroke:#ffffff24;
-      --text:#e9ecff;
-      --muted:#b8c0ffcc;
-      --accent:#7c5cff;
-      --accent2:#22c55e;
-      --danger:#ef4444;
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
-      --radius: 22px;
+      /* Matched to screenshot (dark navy + beige) */
+      --navy:#0f1226;
+      --navy-2:#171a31;
+      --navy-3:#202543;
+      --gold:#e7d9bc;
+      --gold-2:#d7ccb3;
+      --gold-3:#cdbf9f;
+      --line:#595b67;
+      --ink:#111323;
+      --panel-text:#1b2035;
+      --panel-soft:#f6f1e7;
+      --success:#2ea35e;
+      --danger:#c23b35;
+      --shadow:0 16px 35px rgba(0,0,0,.28);
+      --soft-shadow:0 8px 18px rgba(0,0,0,.14);
     }
 
+    *{ box-sizing:border-box; }
+    html, body{ margin:0; padding:0; }
     body{
-      min-height: 100vh;
-      color: var(--text);
-      background: radial-gradient(900px 500px at 20% 10%, rgba(124,92,255,.35), transparent 60%),
-                  radial-gradient(700px 500px at 90% 30%, rgba(34,197,94,.18), transparent 60%),
-                  linear-gradient(160deg, var(--bg1), var(--bg2));
-      overflow-x: hidden;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(900px 380px at 50% -120px, rgba(255,255,255,.04), transparent 60%),
+        var(--navy);
+      color: var(--gold);
+      line-height:1.35;
     }
 
-    body.light{
-      --bg1:#f5f7ff;
-      --bg2:#eef2ff;
-      --card:#ffffffcc;
-      --stroke:#1118271a;
-      --text:#0b1220;
-      --muted:#334155cc;
-      --accent:#5b5cff;
-      --accent2:#16a34a;
-      --danger:#dc2626;
-      background: radial-gradient(900px 500px at 20% 10%, rgba(91,92,255,.18), transparent 60%),
-                  radial-gradient(700px 500px at 90% 30%, rgba(22,163,74,.12), transparent 60%),
-                  linear-gradient(160deg, var(--bg1), var(--bg2));
-    }
-
-    .wrap{
-      max-width: 980px;
+    .page{
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 26px 14px 40px;
+      padding: 14px 14px 24px;
     }
 
-    .hero{
-      border: 1px solid var(--stroke);
-      background: linear-gradient(180deg, var(--card), transparent);
-      box-shadow: var(--shadow);
-      border-radius: var(--radius);
-      padding: 18px 18px 16px;
-      position: relative;
-      overflow: hidden;
+    /* ===== Top ===== */
+    .topbar{
+      display:grid;
+      grid-template-columns: auto 1fr auto;
+      align-items:center;
+      gap:12px;
+      padding: 6px 2px 10px;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 14px;
     }
-
-    .glow{
-      position:absolute;
-      inset:-120px -120px auto auto;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle at 40% 40%, rgba(124,92,255,.45), transparent 60%);
-      filter: blur(2px);
-      pointer-events:none;
-      transform: rotate(12deg);
+    .topbar-left, .topbar-right{
+      display:flex;
+      gap:26px;
+      align-items:center;
+      white-space: nowrap;
     }
-    .glow2{
-      position:absolute;
-      inset:auto auto -130px -130px;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle at 60% 60%, rgba(34,197,94,.25), transparent 60%);
-      filter: blur(2px);
-      pointer-events:none;
-      transform: rotate(-10deg);
+    .topbar a{
+      color: var(--gold);
+      text-decoration:none;
+      opacity:.96;
     }
-
-    .title{
-      font-weight: 800;
+    .topbar a:hover{ text-decoration:underline; }
+    .topbar-center{
+      text-align:center;
+      font-size: clamp(15px, 2vw, 21px);
       letter-spacing: .2px;
-      margin: 0;
-      font-size: clamp(20px, 2.8vw, 30px);
+      font-weight: 800;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-    .subtitle{
-      margin: 6px 0 0;
-      color: var(--muted);
+
+    .header-line{
+      height:10px;
+      background: var(--line);
+      opacity:.9;
+      margin-bottom: 16px;
+    }
+
+    /* ===== Hero ===== */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items:center;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 900px){
+      .hero{
+        grid-template-columns: 420px 1fr;
+        gap: 18px;
+      }
+    }
+
+    .hero-logo-wrap{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height: 220px;
+    }
+    .hero-logo{
+      width: min(300px, 64vw);
+      aspect-ratio:1/1;
+      object-fit:contain;
+      border-radius:50%;
+      filter:
+        drop-shadow(0 0 28px rgba(255,255,255,.24))
+        drop-shadow(0 18px 24px rgba(0,0,0,.36));
+    }
+
+    .hero-title{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:10px;
+      padding: 8px 4px;
+    }
+    .hero-kicker{
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .hero-h1{
+      margin:0;
+      font-size: clamp(28px, 4.2vw, 58px);
+      line-height: 1.05;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing:.1px;
+    }
+
+    /* ===== Main beige panel ===== */
+    .panel{
+      background: var(--gold-2);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .panel-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+
+    @media (min-width: 980px){
+      .panel-grid{
+        grid-template-columns: 320px 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* ===== Lesson menu ===== */
+    .lesson-menu{
+      padding: 6px 4px;
+      display:grid;
+      gap: 10px;
+      align-content:start;
+    }
+
+    .lesson-row{
+      display:grid;
+      grid-template-columns: 56px 1fr;
+      gap: 10px;
+      align-items:center;
+    }
+
+    .lesson-icon-box{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:56px;
+    }
+
+    .lesson-icon{
+      width:40px;
+      height:40px;
+      object-fit:contain;
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,.18));
+    }
+
+    .lesson-btn{
+      border:none;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 999px;
+      min-height: 52px;
+      padding: 10px 16px;
+      text-align:center;
+      white-space: pre-line;
+      font-weight: 800;
+      font-size: 14px;
+      cursor:pointer;
+      box-shadow: 0 10px 18px rgba(0,0,0,.22);
+      transition: transform .12s ease, background-color .12s ease, box-shadow .12s ease;
+    }
+    .lesson-btn:hover{
+      background: var(--navy-2);
+      transform: translateY(-1px);
+    }
+    .lesson-btn.active{
+      background: linear-gradient(180deg, #1a1d34 0%, #0f1226 100%);
+      box-shadow:
+        0 0 0 2px rgba(231,217,188,.26) inset,
+        0 12px 18px rgba(0,0,0,.25);
+    }
+
+    /* Mobile lesson menu */
+    @media (max-width: 979px){
+      .lesson-menu{
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 10px;
+      }
+      .lesson-row{
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .lesson-icon-box{ min-height:auto; }
+      .lesson-icon{ width:30px; height:30px; }
+      .lesson-btn{
+        min-height: 46px;
+        border-radius: 16px;
+        font-size: 13px;
+      }
+    }
+
+    /* ===== Content ===== */
+    .content-box{
+      display:grid;
+      gap: 12px;
+      min-width:0;
+    }
+
+    .comment-block{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(17,19,35,.08);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .comment-title,
+    .comments-lesson{
+      margin:0;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+
+    .form-grid{ display:grid; gap:10px; }
+    .field{ display:grid; gap:5px; }
+
+    .label{
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing:.2px;
+    }
+
+    .input, .textarea{
+      width:100%;
+      border:1px solid rgba(17,19,35,.18);
+      background: var(--panel-soft);
+      color: var(--panel-text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font: inherit;
+      outline:none;
+    }
+
+    .input:focus, .textarea:focus{
+      border-color: rgba(17,19,35,.35);
+      box-shadow: 0 0 0 3px rgba(17,19,35,.08);
+    }
+
+    .textarea{
+      min-height: 96px;
+      resize: vertical;
+      line-height:1.35;
+    }
+
+    .form-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mini{
+      color: rgba(17,19,35,.78);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .send-btn{
+      border:none;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 999px;
+      padding: 10px 16px;
+      min-height: 44px;
+      font-weight: 800;
+      cursor:pointer;
+      box-shadow: 0 8px 14px rgba(0,0,0,.20);
+      transition: transform .12s ease, background .12s ease;
+    }
+    .send-btn:hover{ background: var(--navy-2); transform: translateY(-1px); }
+    .send-btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+
+    .status{
+      min-height: 16px;
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .status.ok{ color: var(--success); }
+    .status.err{ color: var(--danger); }
+
+    .comments-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:8px;
+      flex-wrap:wrap;
+    }
+
+    .comments-meta{
+      border:1px solid rgba(17,19,35,.12);
+      background: rgba(255,255,255,.45);
+      color: rgba(17,19,35,.86);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .comments-list{
+      display:grid;
+      gap: 10px;
+      min-height: 120px;
+      align-content:start;
+    }
+
+    .comment{
+      background: var(--panel-soft);
+      border: 1px solid rgba(17,19,35,.12);
+      border-radius: 14px;
+      padding: 10px 12px;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .comment.newly-added{
+      animation: commentFade .18s ease-out;
+    }
+
+    @keyframes commentFade{
+      from{ opacity:0; transform: translateY(4px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+
+    .comment-top{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      margin-bottom:4px;
+    }
+
+    .comment-name{
+      color: var(--ink);
+      font-weight: 800;
       font-size: 14px;
     }
 
-    .panel{
-      margin-top: 14px;
-      border: 1px solid var(--stroke);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.04);
-      padding: 16px;
-      box-shadow: 0 12px 35px rgba(0,0,0,.18);
-    }
-    body.light .panel{ background: rgba(0,0,0,0.02); }
-
-    .nums{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media (min-width: 640px){
-      .nums{ grid-template-columns: 1fr 1fr; }
+    .comment-time{
+      color: rgba(17,19,35,.65);
+      font-size: 12px;
+      white-space: nowrap;
     }
 
-    .numCard{
-      position: relative;
-      border: 1px solid var(--stroke);
-      border-radius: 20px;
-      padding: 14px 14px 12px;
-      background: linear-gradient(180deg, rgba(255,255,255,.08), transparent);
-      overflow: hidden;
-    }
-    body.light .numCard{
-      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.4));
+    .comment-text{
+      color: #232743;
+      font-size: 14px;
+      line-height:1.35;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
 
-    .numLabel{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
-
-    .badgeSoft{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(124,92,255,.12);
-      color: var(--text);
+    .empty{
+      border:1px dashed rgba(17,19,35,.22);
+      background: rgba(248,244,236,.75);
+      border-radius: 12px;
+      padding: 12px;
+      color: rgba(17,19,35,.75);
       font-weight: 700;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    .bigNumber{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height: 110px;
-      border-radius: 16px;
-      border: 1px dashed var(--stroke);
-      background: rgba(0,0,0,.12);
-      font-size: 54px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      position: relative;
-      user-select: none;
-      transform: translateZ(0);
-    }
-    body.light .bigNumber{ background: rgba(0,0,0,.03); }
-
-    .bigNumber.rolling{
-      animation: wobble .55s ease-in-out infinite;
-      filter: saturate(1.1);
-    }
-
-    .bigNumber.settle{
-      animation: settle .35s ease-out;
-    }
-
-    @keyframes wobble{
-      0%{ transform: translateY(0) rotate(0deg); }
-      25%{ transform: translateY(-2px) rotate(-0.2deg); }
-      50%{ transform: translateY(0) rotate(0.2deg); }
-      75%{ transform: translateY(2px) rotate(-0.1deg); }
-      100%{ transform: translateY(0) rotate(0deg); }
-    }
-    @keyframes settle{
-      0%{ transform: scale(0.94); }
-      80%{ transform: scale(1.02); }
-      100%{ transform: scale(1); }
-    }
-
-    .controls{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .btnFancy{
-      border-radius: 14px;
-      padding: 11px 14px;
-      font-weight: 800;
-      border: 1px solid var(--stroke);
-      box-shadow: 0 10px 20px rgba(0,0,0,.2);
-      transition: transform .12s ease, filter .12s ease;
-    }
-    .btnFancy:active{ transform: translateY(1px) scale(0.99); }
-    .btnPrimary{
-      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.65));
-      color: white;
-    }
-    .btnSuccess{
-      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(34,197,94,.65));
-      color: white;
-    }
-    .btnDanger{
-      background: linear-gradient(135deg, rgba(239,68,68,.95), rgba(239,68,68,.65));
-      color: white;
-    }
-    .btnGhost{
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-    }
-    body.light .btnGhost{ background: rgba(0,0,0,.03); }
-
-    .statusRow{
-      margin-top: 12px;
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items:center;
-      justify-content: space-between;
-    }
-
-    .status{
-      color: var(--muted);
       font-size: 13px;
     }
 
-    .history{
-      margin-top: 14px;
-      border: 1px solid var(--stroke);
+    /* ===== Full-screen reload overlay ===== */
+    .reload-overlay{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15,18,38,.82);
+      backdrop-filter: blur(4px);
+    }
+
+    .reload-overlay.show{
+      display: flex;
+      animation: overlayFadeIn .15s ease-out;
+    }
+
+    @keyframes overlayFadeIn{
+      from{ opacity:0; }
+      to{ opacity:1; }
+    }
+
+    .reload-box{
+      width: min(92vw, 360px);
+      background: var(--gold-2);
+      color: var(--ink);
+      border: 1px solid rgba(17,19,35,.14);
       border-radius: 18px;
-      overflow: hidden;
+      padding: 18px 16px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.28);
+      text-align: center;
     }
-    .historyHead{
-      padding: 10px 12px;
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      background: rgba(255,255,255,.05);
-      border-bottom: 1px solid var(--stroke);
-    }
-    body.light .historyHead{ background: rgba(0,0,0,.02); }
 
-    .historyList{
-      max-height: 240px;
-      overflow:auto;
-      padding: 8px 10px;
+    .reload-spinner{
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      border: 4px solid rgba(17,19,35,.18);
+      border-top-color: var(--navy);
+      animation: spin .9s linear infinite;
     }
-    .hItem{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 8px 10px;
-      border-radius: 14px;
-      border: 1px solid transparent;
-    }
-    .hItem:hover{
-      border-color: var(--stroke);
-      background: rgba(255,255,255,.03);
-    }
-    body.light .hItem:hover{ background: rgba(0,0,0,.02); }
 
-    .hPair{
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+
+    .reload-title{
       font-weight: 800;
-      letter-spacing: .2px;
-    }
-    .hTime{
-      color: var(--muted);
-      font-size: 12px;
-      white-space: nowrap;
+      font-size: 16px;
+      color: var(--ink);
+      margin-bottom: 4px;
     }
 
-    .tiny{
-      font-size: 12px;
-      color: var(--muted);
+    .reload-sub{
+      font-weight: 700;
+      font-size: 13px;
+      color: rgba(17,19,35,.78);
     }
 
-    .toastish{
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      display:none;
-    }
-    body.light .toastish{ background: rgba(0,0,0,.02); }
+    /* ===== Mobile ===== */
+    @media (max-width: 640px){
+      .page{ padding:10px 10px 18px; }
 
-    @media (prefers-reduced-motion: reduce){
-      .bigNumber.rolling{ animation: none; }
-      .bigNumber.settle{ animation: none; }
-      .btnFancy{ transition: none; }
+      .topbar{
+        grid-template-columns: 1fr;
+        gap:6px;
+        font-size:12px;
+      }
+      .topbar-left, .topbar-right{
+        justify-content:center;
+        gap:16px;
+      }
+      .topbar-center{
+        order:-1;
+        white-space: normal;
+        line-height: 1.15;
+      }
+
+      .header-line{ height:6px; margin-bottom: 10px; }
+      .panel{ padding:10px; }
+
+      .comment-title, .comments-lesson{ font-size:16px; }
+
+      .form-row{ align-items:stretch; }
+      .send-btn{ width:100%; }
     }
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <div class="glow"></div>
-      <div class="glow2"></div>
+  <div class="page">
 
-      <div class="d-flex align-items-start justify-content-between gap-3 flex-wrap">
-        <div>
-          <h1 class="title">2-Number Randomizer (No Repeats)</h1>
-          <p class="subtitle mb-0">
-            Picks <b>one number from 1–12</b> and <b>one number from 1–20</b>. Each list never repeats until reset.
-          </p>
+    <header>
+      <div class="topbar">
+        <div class="topbar-left">
+          <a href="https://metodklasterppkggtu.tilda.ws/" target="_blank" rel="noopener noreferrer">О проекте</a>
+          <a href="https://metodklasterppkggtu.tilda.ws/" target="_blank" rel="noopener noreferrer">Распоряжение</a>
         </div>
-
-        <div class="d-flex gap-2">
-          <button id="toggleTheme" class="btn btnFancy btnGhost" type="button" aria-label="Toggle theme">
-            🌙 / ☀️
-          </button>
-          <button id="clearStorage" class="btn btnFancy btnGhost" type="button" aria-label="Clear saved state">
-            Clear saved
-          </button>
+        <div class="topbar-center">ПРОФЕССИОНАЛЬНО-ПЕДАГОГИЧЕСКИЙ КОЛЛЕДЖ ГГТУ</div>
+        <div class="topbar-right">
+          <a href="https://metodklasterppkggtu.tilda.ws/" target="_blank" rel="noopener noreferrer">Контакты</a>
         </div>
       </div>
+      <div class="header-line"></div>
+    </header>
 
-      <div class="panel">
-        <div class="nums">
-          <div class="numCard">
-            <div class="numLabel">
-              <span>List A (1–12)</span>
-              <span class="badgeSoft" id="remainingA">Remaining: 12</span>
-            </div>
-            <div class="bigNumber" id="numA">—</div>
-            <div class="tiny mt-2">This number will not appear again in List A until you reset List A (or all).</div>
-          </div>
-
-          <div class="numCard">
-            <div class="numLabel">
-              <span>List B (1–20)</span>
-              <span class="badgeSoft" id="remainingB">Remaining: 20</span>
-            </div>
-            <div class="bigNumber" id="numB">—</div>
-            <div class="tiny mt-2">This number will not appear again in List B until you reset List B (or all).</div>
-          </div>
-        </div>
-
-        <div class="controls">
-          <button id="btnNext" class="btn btnFancy btnPrimary" type="button">🎲 Next pair</button>
-          <button id="btnUndo" class="btn btnFancy btnGhost" type="button">↩️ Undo (reverse last)</button>
-          <button id="btnResetAll" class="btn btnFancy btnDanger" type="button">🔁 Reset ALL</button>
-          <button id="btnResetA" class="btn btnFancy btnGhost" type="button">Reset A only</button>
-          <button id="btnResetB" class="btn btnFancy btnGhost" type="button">Reset B only</button>
-        </div>
-
-        <div class="statusRow">
-          <div class="status" id="statusText">Ready.</div>
-          <div class="status">
-            <span class="me-2">History: <b id="historyCount">0</b></span>
-            <span>Saved: <b id="savedHint">Yes</b></span>
-          </div>
-        </div>
-
-        <div class="toastish" id="toastish"></div>
-
-        <div class="history mt-3">
-          <div class="historyHead">
-            <div class="fw-bold">Used pairs</div>
-            <button id="btnClearHistory" class="btn btn-sm btn-outline-light" type="button" style="border-radius: 12px;">
-              Clear history list
-            </button>
-          </div>
-          <div class="historyList" id="historyList"></div>
-        </div>
-
-        <div class="tiny mt-3">
-          Tip: This page saves progress in your browser (so refreshing won’t lose the used numbers). Use “Clear saved” if you want to wipe everything.
-        </div>
+    <section class="hero">
+      <div class="hero-logo-wrap">
+        <!-- Put your round logo image here -->
+        <img class="hero-logo" src="./img/logo-cluster.png" alt="Логотип" onerror="this.style.visibility='hidden'">
       </div>
+      <div class="hero-title">
+        <div class="hero-kicker">митапы</div>
+        <h1 class="hero-h1">ЛУЧШИЕ ПЕДАГОГИЧЕСКИЕ ПРАКТИКИ<br>ППК ГГТУ 2025/2026</h1>
+      </div>
+    </section>
+
+    <main class="panel">
+      <div class="panel-grid">
+        <!-- LEFT LESSON BUTTONS -->
+        <aside class="lesson-menu" id="lessonButtons"></aside>
+
+        <!-- RIGHT CONTENT -->
+        <section>
+          <div class="content-box">
+            <div class="comment-block">
+              <h2 class="comment-title" id="formTitle">Оставить комментарий</h2>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label class="label" for="nameInput">Имя / Ник</label>
+                  <input id="nameInput" class="input" type="text" maxlength="60" placeholder="Необязательно">
+                </div>
+
+                <div class="field">
+                  <label class="label" for="commentInput">Комментарий</label>
+                  <textarea id="commentInput" class="textarea" maxlength="1000" placeholder="Напишите комментарий..."></textarea>
+                </div>
+
+                <div class="form-row">
+                  <div class="mini">Ctrl + Enter</div>
+                  <button id="sendBtn" class="send-btn" type="button">Отправить</button>
+                </div>
+              </div>
+
+              <div id="status" class="status"></div>
+            </div>
+
+            <div class="comment-block">
+              <div class="comments-head">
+                <h2 class="comments-lesson" id="currentLessonTitle"></h2>
+                <div class="comments-meta" id="metaInfo">0 • 3с</div>
+              </div>
+              <div id="comments" class="comments-list"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Full-screen send/reload animation -->
+  <div id="reloadOverlay" class="reload-overlay" aria-hidden="true">
+    <div class="reload-box">
+      <div class="reload-spinner"></div>
+      <div class="reload-title">Комментарий отправляется</div>
+      <div class="reload-sub" id="reloadSub">Обновляем страницу… 4с</div>
     </div>
   </div>
 
   <script>
-    (function(){
-      // --- Helpers ---
-      const $ = (id) => document.getElementById(id);
+    // =========================
+    // CONFIG (your real links/fields)
+    // =========================
+    const CONFIG = {
+      formAction: "https://docs.google.com/forms/d/e/1FAIpQLSdd28t0n2GXXOv4XOMUr-WAiRpSlBdCv6sfolVbJSFzyFf8Fg/formResponse",
+      csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT5jBEeKrtDo-uyk9Cwtvsy9u9APjAnnlzdlc4ACfQThH_vcawSFdiwgb5Gg9XHU-_G40b8Eb_FOY00/pub?gid=453751927&single=true&output=csv",
 
-      function rangeInclusive(min, max){
-        const a = [];
-        for(let i=min;i<=max;i++) a.push(i);
-        return a;
+      fields: {
+        lesson: "entry.1563581279",
+        name: "entry.1299891478",
+        comment: "entry.1991102895"
+      },
+
+      // 6 митапов (L1–L6 остаются в URL/Google Form как короткие ID, но в интерфейсе показываются реальные названия)
+      lessons: [
+      { id: "L1", speaker: "Марущак Ольга Валентиновна", title: "Представление результатов выполнения расчетных задач средствами деловой графики" },
+      { id: "L2", speaker: "Зубкова Елена Владимировна", title: "Методы обучения детей движениям" },
+      { id: "L3", speaker: "Суслина Наталия Александровна", title: "Методы и средства руководства играми детей" },
+      { id: "L4", speaker: "Лазаренко Лада Владимировна", title: "Россия XIII веке: От Петра до Екатерины - становление империи." },
+      { id: "L5", speaker: "Зорина Татьяна Михайловна", title: "Использование комбинаций многогранников и тел вращения в практико-ориентированных задачах" },
+      { id: "L6", speaker: "Евтеева Светлана Владимировна", title: "Ф.М. Достоевский. Глубина философской мысли в произведениях автора" }
+      ],
+
+      refreshMs: 3000,
+
+      // Put your icons in ./img/
+      icons: [
+        "./img/icon-users.png",
+        "./img/icon-cap.png",
+        "./img/icon-book.png",
+        "./img/icon-book-2.png"
+      ]
+    };
+
+    // =========================
+    // STATE
+    // =========================
+    let currentLesson = new URLSearchParams(location.search).get("lesson") || (CONFIG.lessons[0] && CONFIG.lessons[0].id) || "L1";
+    if (!getLessonById(currentLesson)) currentLesson = (CONFIG.lessons[0] && CONFIG.lessons[0].id) || "L1";
+
+    let isLoading = false;
+    let lastServerSignature = "";   // prevents DOM work if data unchanged
+    let pollTimer = null;
+    const commentNodeMap = new Map(); // DOM reuse (no blinking)
+    const cacheKeyPrefix = "mk_comments_cache_";
+
+    // =========================
+    // DOM
+    // =========================
+    const lessonButtonsEl = document.getElementById("lessonButtons");
+    const formTitleEl = document.getElementById("formTitle");
+    const currentLessonTitleEl = document.getElementById("currentLessonTitle");
+    const metaInfoEl = document.getElementById("metaInfo");
+    const commentsEl = document.getElementById("comments");
+    const nameInputEl = document.getElementById("nameInput");
+    const commentInputEl = document.getElementById("commentInput");
+    const sendBtnEl = document.getElementById("sendBtn");
+    const statusEl = document.getElementById("status");
+    const reloadOverlayEl = document.getElementById("reloadOverlay");
+    const reloadSubEl = document.getElementById("reloadSub");
+
+    // =========================
+    // Lesson helpers
+    // =========================
+    function getLessonById(id) {
+      return CONFIG.lessons.find(l => l.id === id) || null;
+    }
+
+    function lessonLabel(lesson) {
+      // two-line label for buttons
+      return `${lesson.speaker}\n${lesson.title}`;
+    }
+
+    function lessonFullOneLine(lesson) {
+      return `${lesson.speaker} — ${lesson.title}`;
+    }
+
+    // =========================
+    // INIT
+    // =========================
+    renderLessonButtons();
+    updateLessonLabels();
+
+    // Fast local cache render first (no jump while fetching)
+    loadFromCache();
+
+    // Then server sync
+    loadComments(true);
+
+    pollTimer = setInterval(() => {
+      if (!document.hidden) loadComments(false);
+    }, CONFIG.refreshMs);
+
+    sendBtnEl.addEventListener("click", submitComment);
+    commentInputEl.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") submitComment();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) loadComments(false);
+    });
+
+    // =========================
+    // UI helpers
+    // =========================
+    function updateLessonLabels() {
+      const lesson = getLessonById(currentLesson);
+      const speaker = lesson ? lesson.speaker : currentLesson;
+      const title = lesson ? lesson.title : currentLesson;
+
+      formTitleEl.textContent = `Оставить комментарий • ${speaker}`;
+      currentLessonTitleEl.textContent = title;
+      setStatus("");
+    }
+
+    function setStatus(text, type = "") {
+      statusEl.textContent = text || "";
+      statusEl.className = "status" + (type ? " " + type : "");
+    }
+
+    function formatTime(value) {
+      if (!value) return "";
+      const d = new Date(value);
+      if (isNaN(d.getTime())) return String(value);
+      return d.toLocaleString("ru-RU");
+    }
+
+    function normalizeHeader(s) {
+      return String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+    }
+
+    function renderLessonButtons() {
+      lessonButtonsEl.innerHTML = "";
+
+      CONFIG.lessons.forEach((lesson, i) => {
+        const row = document.createElement("div");
+        row.className = "lesson-row";
+
+        const iconBox = document.createElement("div");
+        iconBox.className = "lesson-icon-box";
+
+        const img = document.createElement("img");
+        img.className = "lesson-icon";
+        img.alt = "";
+        img.src = CONFIG.icons[i % CONFIG.icons.length] || "";
+        img.onerror = () => { img.style.visibility = "hidden"; };
+        iconBox.appendChild(img);
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "lesson-btn" + (lesson.id === currentLesson ? " active" : "");
+        btn.textContent = lessonLabel(lesson);
+
+        btn.addEventListener("click", () => {
+          if (lesson.id === currentLesson) return;
+
+          currentLesson = lesson.id;
+          lastServerSignature = "";
+          commentNodeMap.clear();
+
+          updateLessonLabels();
+          renderLessonButtons();
+
+          // Cached draw immediately, then network sync
+          loadFromCache();
+          loadComments(true);
+
+          const url = new URL(location.href);
+          url.searchParams.set("lesson", lesson.id);
+          history.replaceState({}, "", url.toString());
+        });
+
+        row.appendChild(iconBox);
+        row.appendChild(btn);
+        lessonButtonsEl.appendChild(row);
+      });
+    }
+
+    // =========================
+    // Submit comment -> Google Forms
+    // =========================
+    async function submitComment() {
+      const name = nameInputEl.value.trim();
+      const comment = commentInputEl.value.trim();
+
+      if (!comment) {
+        setStatus("Пустой комментарий.", "err");
+        commentInputEl.focus();
+        return;
       }
 
-      function pickRandomFrom(arr){
-        const idx = Math.floor(Math.random() * arr.length);
-        return { value: arr[idx], idx };
-      }
+      sendBtnEl.disabled = true;
+      setStatus("Отправка...");
 
-      function nowTime(){
-        const d = new Date();
-        return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-      }
+      try {
+        const params = new URLSearchParams();
+        const lessonObj = getLessonById(currentLesson);
+        params.append(CONFIG.fields.lesson, lessonObj ? lessonObj.id : currentLesson);
+        params.append(CONFIG.fields.name, name || "Anonymous");
+        params.append(CONFIG.fields.comment, comment);
 
-      function showToast(msg){
-        const el = $("toastish");
-        el.textContent = msg;
-        el.style.display = "block";
-        clearTimeout(showToast._t);
-        showToast._t = setTimeout(() => { el.style.display = "none"; }, 2600);
-      }
+        await fetch(CONFIG.formAction, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+          },
+          body: params.toString()
+        });
 
-      // --- State ---
-      const STORAGE_KEY = "pairRandomizer_v1";
-      const THEME_KEY = "pairRandomizer_theme";
+        commentInputEl.value = "";
+        setStatus("Отправлено.", "ok");
 
-      const defaults = {
-        remainingA: rangeInclusive(1,12),
-        remainingB: rangeInclusive(1,20),
-        history: [], // {a,b,timeISO}
-        lastShown: { a: null, b: null }
-      };
+        // Intentional UX flow: full-screen loader + hard page refresh feel
+        showReloadOverlayAndRefresh(4);
+        return;
 
-      let state = loadState();
-
-      function loadState(){
-        try{
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if(!raw) return structuredClone(defaults);
-          const obj = JSON.parse(raw);
-
-          // basic validation
-          if(!Array.isArray(obj.remainingA) || !Array.isArray(obj.remainingB) || !Array.isArray(obj.history)){
-            return structuredClone(defaults);
-          }
-          if(!obj.lastShown) obj.lastShown = {a:null, b:null};
-
-          return obj;
-        }catch(e){
-          return structuredClone(defaults);
+      } catch (e) {
+        console.error(e);
+        setStatus("Ошибка отправки.", "err");
+      } finally {
+        // On success overlay locks UI until reload; on error restore controls
+        if (!reloadOverlayEl.classList.contains("show")) {
+          sendBtnEl.disabled = false;
+          nameInputEl.disabled = false;
+          commentInputEl.disabled = false;
         }
       }
+    }
 
-      function saveState(){
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        $("savedHint").textContent = "Yes";
-      }
+    function showReloadOverlayAndRefresh(seconds = 4) {
+      try { clearInterval(pollTimer); } catch {}
 
-      function clearSaved(){
-        localStorage.removeItem(STORAGE_KEY);
-        state = structuredClone(defaults);
-        renderAll();
-        showToast("Saved state cleared.");
-      }
+      sendBtnEl.disabled = true;
+      nameInputEl.disabled = true;
+      commentInputEl.disabled = true;
 
-      // --- Theme ---
-      function applyTheme(theme){
-        document.body.classList.toggle("light", theme === "light");
-        localStorage.setItem(THEME_KEY, theme);
-      }
-      function initTheme(){
-        const saved = localStorage.getItem(THEME_KEY);
-        if(saved === "light" || saved === "dark"){
-          applyTheme(saved);
-        }else{
-          // default: dark
-          applyTheme("dark");
+      reloadOverlayEl.classList.add("show");
+      reloadOverlayEl.setAttribute("aria-hidden", "false");
+
+      let left = seconds;
+      reloadSubEl.textContent = `Обновляем страницу… ${left}с`;
+
+      const tick = setInterval(() => {
+        left -= 1;
+        if (left > 0) {
+          reloadSubEl.textContent = `Обновляем страницу… ${left}с`;
         }
-      }
+      }, 1000);
 
-      // --- UI ---
-      function setRolling(el, on){
-        el.classList.toggle("rolling", on);
-        if(on) el.classList.remove("settle");
-      }
-      function settle(el){
-        el.classList.remove("rolling");
-        el.classList.add("settle");
-        setTimeout(() => el.classList.remove("settle"), 400);
-      }
+      setTimeout(() => {
+        clearInterval(tick);
 
-      function renderCounters(){
-        $("remainingA").textContent = "Remaining: " + state.remainingA.length;
-        $("remainingB").textContent = "Remaining: " + state.remainingB.length;
-        $("historyCount").textContent = String(state.history.length);
-      }
+        const url = new URL(location.href);
+        url.searchParams.set("lesson", currentLesson);
+        url.searchParams.set("_r", String(Date.now())); // cache-buster
+        location.replace(url.toString());
+      }, seconds * 1000);
+    }
 
-      function renderNumbers(){
-        $("numA").textContent = state.lastShown.a ?? "—";
-        $("numB").textContent = state.lastShown.b ?? "—";
-      }
+    // =========================
+    // Load comments from published CSV
+    // =========================
+    async function loadComments(force = false) {
+      if (isLoading) return;
+      isLoading = true;
 
-      function renderHistory(){
-        const list = $("historyList");
-        list.innerHTML = "";
+      try {
+        const url = CONFIG.csvUrl + (CONFIG.csvUrl.includes("?") ? "&" : "?") + "_ts=" + Date.now();
+        const res = await fetch(url, { cache: "no-store" });
+        const csvText = await res.text();
 
-        if(state.history.length === 0){
-          const empty = document.createElement("div");
-          empty.className = "tiny p-2";
-          empty.textContent = "No pairs yet.";
-          list.appendChild(empty);
+        const rows = parseCSV(csvText);
+        if (!rows.length) {
+          renderComments([]);
           return;
         }
 
-        // newest on top
-        const items = [...state.history].reverse();
-        for(const h of items){
-          const row = document.createElement("div");
-          row.className = "hItem";
+        const headers = rows[0].map(normalizeHeader);
+        const dataRows = rows.slice(1);
 
-          const left = document.createElement("div");
-          left.className = "hPair";
-          left.textContent = `A:${h.a}  •  B:${h.b}`;
+        // Auto-detect columns (fallback to default Forms order)
+        let idxTimestamp = headers.findIndex(h => h.includes("timestamp"));
+        let idxLesson = headers.findIndex(h => h.includes("lesson"));
+        let idxName = headers.findIndex(h => h.includes("name") || h.includes("nickname"));
+        let idxComment = headers.findIndex(h => h.includes("comment"));
 
-          const right = document.createElement("div");
-          right.className = "hTime";
-          const t = new Date(h.timeISO);
-          right.textContent = t.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+        if (idxTimestamp < 0) idxTimestamp = 0;
+        if (idxLesson < 0) idxLesson = 1;
+        if (idxName < 0) idxName = 2;
+        if (idxComment < 0) idxComment = 3;
 
-          row.appendChild(left);
-          row.appendChild(right);
-          list.appendChild(row);
+        const comments = [];
+        for (const row of dataRows) {
+          const lessonRaw = String(row[idxLesson] || "").trim();
+          const cur = getLessonById(currentLesson);
+          const curLabel = cur ? lessonFullOneLine(cur) : "";
+          if (lessonRaw !== currentLesson && lessonRaw !== curLabel) continue;
+
+          const textComment = String(row[idxComment] || "").trim();
+          if (!textComment) continue;
+
+          comments.push({
+            timestamp: row[idxTimestamp] || "",
+            lesson: lessonRaw,
+            name: String(row[idxName] || "").trim() || "Anonymous",
+            comment: textComment
+          });
         }
-      }
 
-      function renderStatus(msg){
-        $("statusText").textContent = msg;
-      }
+        // newest first
+        comments.reverse();
 
-      function renderAll(){
-        renderCounters();
-        renderNumbers();
-        renderHistory();
-        $("savedHint").textContent = localStorage.getItem(STORAGE_KEY) ? "Yes" : "No";
-      }
-
-      // --- Core actions ---
-      let busy = false;
-
-      async function animatePick(finalA, finalB){
-        const elA = $("numA");
-        const elB = $("numB");
-
-        setRolling(elA, true);
-        setRolling(elB, true);
-
-        const start = performance.now();
-        const duration = 900; // ms
-        const tickEvery = 55; // ms
-
-        let lastTick = 0;
-
-        return new Promise((resolve) => {
-          function step(now){
-            const elapsed = now - start;
-
-            if(elapsed - lastTick >= tickEvery){
-              lastTick = elapsed;
-              // show fast-changing numbers (not tied to remaining arrays; just animation)
-              elA.textContent = String(1 + Math.floor(Math.random() * 12));
-              elB.textContent = String(1 + Math.floor(Math.random() * 20));
-            }
-
-            if(elapsed < duration){
-              requestAnimationFrame(step);
-            }else{
-              elA.textContent = String(finalA);
-              elB.textContent = String(finalB);
-              settle(elA);
-              settle(elB);
-              resolve();
-            }
-          }
-          requestAnimationFrame(step);
-        });
-      }
-
-      async function nextPair(){
-        if(busy) return;
-        if(state.remainingA.length === 0 || state.remainingB.length === 0){
-          renderStatus("Finished: one of the lists is empty. Reset to start again.");
-          showToast("No more unique pairs (A or B is empty).");
+        // If nothing changed -> no DOM updates at all
+        const signature = JSON.stringify(comments);
+        if (!force && signature === lastServerSignature) {
           return;
         }
+        lastServerSignature = signature;
 
-        busy = true;
-        $("btnNext").disabled = true;
+        saveToCache(comments);
+        renderComments(comments);
 
-        // Pick and remove from each remaining list
-        const pickA = pickRandomFrom(state.remainingA);
-        const pickB = pickRandomFrom(state.remainingB);
-
-        const a = pickA.value;
-        const b = pickB.value;
-
-        // Remove chosen (no repeats)
-        state.remainingA.splice(pickA.idx, 1);
-        state.remainingB.splice(pickB.idx, 1);
-
-        // Animate
-        await animatePick(a, b);
-
-        state.lastShown = { a, b };
-        state.history.push({ a, b, timeISO: new Date().toISOString() });
-
-        saveState();
-        renderAll();
-        renderStatus(`Picked: A ${a}, B ${b} (${nowTime()})`);
-
-        // If finished now
-        if(state.remainingA.length === 0 || state.remainingB.length === 0){
-          showToast("One list is now empty. Reset to continue.");
-          renderStatus("Finished: one of the lists is empty. Reset to start again.");
-        }
-
-        $("btnNext").disabled = false;
-        busy = false;
+      } catch (e) {
+        console.error("Load comments error:", e);
+        // keep current UI quietly
+      } finally {
+        isLoading = false;
       }
+    }
 
-      function undo(){
-        if(busy) return;
-        if(state.history.length === 0){
-          showToast("Nothing to undo.");
+    // =========================
+    // Session cache (instant draw on reload / lesson switch)
+    // =========================
+    function getCacheKey() {
+      return cacheKeyPrefix + currentLesson;
+    }
+
+    function saveToCache(comments) {
+      try {
+        sessionStorage.setItem(getCacheKey(), JSON.stringify({
+          t: Date.now(),
+          comments
+        }));
+      } catch {}
+    }
+
+    function loadFromCache() {
+      try {
+        const raw = sessionStorage.getItem(getCacheKey());
+        if (!raw) {
+          renderComments([]);
           return;
         }
+        const parsed = JSON.parse(raw);
+        if (!parsed || !Array.isArray(parsed.comments)) {
+          renderComments([]);
+          return;
+        }
+        renderComments(parsed.comments);
+      } catch {
+        renderComments([]);
+      }
+    }
 
-        const last = state.history.pop();
+    // =========================
+    // No-blink render (DOM patch only)
+    // =========================
+    function commentKey(c) {
+      return `${c.timestamp}__${c.name}__${c.comment}`;
+    }
 
-        // Put back numbers into remaining lists (only if not already there)
-        if(!state.remainingA.includes(last.a)) state.remainingA.push(last.a);
-        if(!state.remainingB.includes(last.b)) state.remainingB.push(last.b);
+    function createCommentNode(c) {
+      const wrap = document.createElement("div");
+      wrap.className = "comment newly-added";
 
-        // Keep remaining lists tidy (optional: sorted)
-        state.remainingA.sort((x,y)=>x-y);
-        state.remainingB.sort((x,y)=>x-y);
+      const top = document.createElement("div");
+      top.className = "comment-top";
 
-        // Update lastShown to previous history item or blank
-        const prev = state.history[state.history.length - 1];
-        state.lastShown = prev ? {a: prev.a, b: prev.b} : {a: null, b: null};
+      const name = document.createElement("div");
+      name.className = "comment-name";
 
-        saveState();
-        renderAll();
-        renderStatus(`Undid last pick: A ${last.a}, B ${last.b}`);
-        showToast("Last pick undone (numbers are available again).");
+      const time = document.createElement("div");
+      time.className = "comment-time";
+
+      const text = document.createElement("div");
+      text.className = "comment-text";
+
+      top.appendChild(name);
+      top.appendChild(time);
+      wrap.appendChild(top);
+      wrap.appendChild(text);
+
+      wrap._nameEl = name;
+      wrap._timeEl = time;
+      wrap._textEl = text;
+
+      wrap.addEventListener("animationend", () => {
+        wrap.classList.remove("newly-added");
+      }, { once: true });
+
+      updateCommentNode(wrap, c);
+      return wrap;
+    }
+
+    function updateCommentNode(node, c) {
+      const newName = c.name || "Anonymous";
+      const newTime = formatTime(c.timestamp);
+      const newText = c.comment || "";
+
+      if (node._nameEl.textContent !== newName) node._nameEl.textContent = newName;
+      if (node._timeEl.textContent !== newTime) node._timeEl.textContent = newTime;
+      if (node._textEl.textContent !== newText) node._textEl.textContent = newText;
+    }
+
+    function renderComments(comments) {
+      metaInfoEl.textContent = `${comments.length} • ${Math.round(CONFIG.refreshMs / 1000)}с`;
+
+      if (!comments.length) {
+        commentsEl.innerHTML = `<div class="empty">Нет комментариев</div>`;
+        commentNodeMap.clear();
+        return;
       }
 
-      function resetAll(){
-        if(busy) return;
-        state = structuredClone(defaults);
-        saveState();
-        renderAll();
-        renderStatus("Reset ALL: both lists are full again.");
-        showToast("All reset.");
+      if (commentsEl.querySelector(".empty")) {
+        commentsEl.innerHTML = "";
       }
 
-      function resetAOnly(){
-        if(busy) return;
+      const nextKeys = new Set();
+      const orderedNodes = [];
 
-        // Rebuild A as full range, but remove any A already used in history? User asked: reset specifically.
-        // "Reset A only" should make A available again fully, even if history exists.
-        state.remainingA = rangeInclusive(1,12);
+      for (const c of comments) {
+        const key = commentKey(c);
+        nextKeys.add(key);
 
-        saveState();
-        renderAll();
-        renderStatus("Reset A only: List A is full again.");
-        showToast("List A reset.");
+        let node = commentNodeMap.get(key);
+        if (!node) {
+          node = createCommentNode(c);
+          commentNodeMap.set(key, node);
+        } else {
+          updateCommentNode(node, c);
+        }
+
+        orderedNodes.push(node);
       }
 
-      function resetBOnly(){
-        if(busy) return;
-        state.remainingB = rangeInclusive(1,20);
-
-        saveState();
-        renderAll();
-        renderStatus("Reset B only: List B is full again.");
-        showToast("List B reset.");
+      // Remove deleted/obsolete
+      for (const [key, node] of commentNodeMap.entries()) {
+        if (!nextKeys.has(key)) {
+          node.remove();
+          commentNodeMap.delete(key);
+        }
       }
 
-      function clearHistoryList(){
-        if(busy) return;
-
-        // Only clear visible history, keep remaining lists as-is (so “used” still used).
-        state.history = [];
-        state.lastShown = {a: null, b: null};
-
-        saveState();
-        renderAll();
-        renderStatus("History list cleared (remaining numbers unchanged).");
-        showToast("History cleared.");
+      // Reorder/insert without full rebuild
+      let cursor = commentsEl.firstChild;
+      for (const node of orderedNodes) {
+        if (node !== cursor) {
+          commentsEl.insertBefore(node, cursor);
+        } else {
+          cursor = cursor.nextSibling;
+        }
       }
 
-      // --- Wire up ---
-      function init(){
-        initTheme();
-        renderAll();
+      while (commentsEl.childNodes.length > orderedNodes.length) {
+        commentsEl.removeChild(commentsEl.lastChild);
+      }
+    }
 
-        $("btnNext").addEventListener("click", nextPair);
-        $("btnUndo").addEventListener("click", undo);
-        $("btnResetAll").addEventListener("click", resetAll);
-        $("btnResetA").addEventListener("click", resetAOnly);
-        $("btnResetB").addEventListener("click", resetBOnly);
-        $("btnClearHistory").addEventListener("click", clearHistoryList);
+    // =========================
+    // CSV parser (quotes, commas, newlines)
+    // =========================
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let i = 0;
+      let inQuotes = false;
 
-        $("toggleTheme").addEventListener("click", () => {
-          const isLight = document.body.classList.contains("light");
-          applyTheme(isLight ? "dark" : "light");
-        });
+      while (i < text.length) {
+        const ch = text[i];
+        const next = text[i + 1];
 
-        $("clearStorage").addEventListener("click", () => {
-          clearSaved();
-          $("savedHint").textContent = "No";
-        });
-
-        // Keyboard shortcuts (nice in class):
-        // Space / Enter = next, Backspace = undo, R = reset all
-        window.addEventListener("keydown", (e) => {
-          const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
-          if(tag === "input" || tag === "textarea") return;
-
-          if(e.code === "Space" || e.code === "Enter"){
-            e.preventDefault();
-            nextPair();
-          }else if(e.code === "Backspace"){
-            e.preventDefault();
-            undo();
-          }else if(e.key.toLowerCase() === "r"){
-            resetAll();
+        if (inQuotes) {
+          if (ch === '"' && next === '"') {
+            cell += '"';
+            i += 2;
+            continue;
           }
-        });
+          if (ch === '"') {
+            inQuotes = false;
+            i++;
+            continue;
+          }
+          cell += ch;
+          i++;
+          continue;
+        }
+
+        if (ch === '"') {
+          inQuotes = true;
+          i++;
+          continue;
+        }
+
+        if (ch === ",") {
+          row.push(cell);
+          cell = "";
+          i++;
+          continue;
+        }
+
+        if (ch === "\r") {
+          if (next === "\n") {
+            row.push(cell);
+            rows.push(row);
+            row = [];
+            cell = "";
+            i += 2;
+          } else {
+            row.push(cell);
+            rows.push(row);
+            row = [];
+            cell = "";
+            i++;
+          }
+          continue;
+        }
+
+        if (ch === "\n") {
+          row.push(cell);
+          rows.push(row);
+          row = [];
+          cell = "";
+          i++;
+          continue;
+        }
+
+        cell += ch;
+        i++;
       }
 
-      init();
-    })();
+      row.push(cell);
+      rows.push(row);
+
+      while (rows.length && rows[rows.length - 1].every(v => v === "")) {
+        rows.pop();
+      }
+
+      return rows;
+    }
   </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-          crossorigin="anonymous"></script>
 </body>
 </html>
