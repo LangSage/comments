@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>митапы — Лучшие педагогические практики ППК ГГТУ 2025/2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0f1226',
+            navy2: '#171a31',
+            navy3: '#202543',
+            gold: '#e7d9bc',
+            gold2: '#d7ccb3',
+            gold3: '#cdbf9f',
+            panelSoft: '#f6f1e7',
+            panelText: '#1b2035',
+            lineGray: '#595b67'
+          },
+          boxShadow: {
+            deep: '0 16px 35px rgba(0,0,0,.28)',
+            soft: '0 8px 18px rgba(0,0,0,.14)',
+            card: '0 16px 30px rgba(0,0,0,.24)'
+          },
+          animation: {
+            spinSlow: 'spin .9s linear infinite',
+            commentIn: 'commentIn .18s ease-out'
+          },
+          keyframes: {
+            commentIn: {
+              '0%': { opacity: '0', transform: 'translateY(4px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background:
+        radial-gradient(900px 380px at 50% -120px, rgba(255,255,255,.04), transparent 60%),
+        #0f1226;
+    }
+
+    .topic-card {
+      background: linear-gradient(180deg, #202543 0%, #0f1226 100%);
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .topic-card:hover {
+      background: linear-gradient(180deg, #262b4c 0%, #11152b 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 32px rgba(0,0,0,.28);
+    }
+    .topic-card.active {
+      box-shadow:
+        inset 0 0 0 2px rgba(231,217,188,.22),
+        0 18px 32px rgba(0,0,0,.28);
+    }
+    .topic-icon {
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.22));
+    }
+
+    .comment-new {
+      animation: commentIn .18s ease-out;
+    }
+
+    .reload-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15,18,38,.82);
+      backdrop-filter: blur(4px);
+    }
+    .reload-overlay.show {
+      display: flex;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-gold antialiased">
+  <div class="mx-auto max-w-[1260px] px-3 pb-6 pt-3 sm:px-4">
+    <header>
+      <div class="grid grid-cols-1 gap-2 text-sm font-bold text-gold sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-3">
+        <div class="order-2 flex items-center justify-center gap-4 sm:order-none sm:justify-start sm:gap-6 whitespace-nowrap">
+          <a class="opacity-95 transition hover:underline" href="https://metodklasterppkggtu.tilda.ws/" target="_blank" rel="noopener noreferrer">О проекте</a>
+          <a class="opacity-95 transition hover:underline" href="https://metodklasterppkggtu.tilda.ws/" target="_blank" rel="noopener noreferrer">Распоряжение</a>
+        </div>
+        <div class="order-1 text-center text-[15px] font-extrabold leading-tight sm:order-none sm:text-[clamp(15px,2vw,21px)] sm:whitespace-nowrap">
+          ПРОФЕССИОНАЛЬНО-ПЕДАГОГИЧЕСКИЙ КОЛЛЕДЖ ГГТУ
+        </div>
+        <div class="order-3 flex items-center justify-center gap-4 sm:justify-end sm:gap-6 whitespace-nowrap">
+          <a class="opacity-95 transition hover:underline" href="https://metodklasterppkggtu.tilda.ws/" target="_blank" rel="noopener noreferrer">Контакты</a>
+        </div>
+      </div>
+      <div class="mb-4 mt-2 h-[6px] bg-lineGray opacity-90 sm:mb-5 sm:h-[10px]"></div>
+    </header>
+
+    <section class="mb-4 grid grid-cols-1 items-center gap-3 sm:mb-5 lg:grid-cols-[300px_1fr] lg:gap-6">
+      <div class="flex min-h-[132px] items-center justify-center sm:min-h-[176px]">
+        <div class="relative h-[132px] w-[132px] overflow-hidden rounded-full  sm:h-[176px] sm:w-[176px] lg:h-[190px] lg:w-[190px]">
+          <img class="h-full w-full scale-[1.34] object-cover" src="./img/logo-cluster.png" alt="Логотип" onerror="this.parentElement.style.display='none'">
+        </div>
+      </div>
+      <div class="flex flex-col justify-center gap-2 text-left">
+        <div class="text-base font-bold sm:text-[clamp(14px,2vw,20px)]">митапы</div>
+        <h1 class="m-0 text-[30px] font-extrabold leading-[1.02] tracking-tight sm:text-[clamp(30px,4.2vw,58px)]">
+          ЛУЧШИЕ ПЕДАГОГИЧЕСКИЕ ПРАКТИКИ<br>ППК ГГТУ 2025/2026
+        </h1>
+      </div>
+    </section>
+
+    <main class="bg-gold2 p-3 text-panelText shadow-deep sm:p-4">
+      <div class="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,2.05fr)_minmax(260px,.78fr)] xl:gap-5">
+        <section class="min-w-0">
+          <div id="lessonButtons" class="grid auto-rows-fr grid-cols-2 gap-3 sm:gap-4 2xl:grid-cols-3"></div>
+        </section>
+
+        <section class="min-w-0">
+          <div class="grid gap-3 xl:sticky xl:top-4 xl:max-w-[360px] xl:ml-auto">
+            <div class="rounded-2xl border border-black/10 bg-white/10 p-3">
+              <h2 id="formTitle" class="m-0 text-left text-lg font-extrabold text-panelText">Оставить комментарий</h2>
+
+              <div class="mt-3 grid gap-3">
+                <div class="grid gap-1.5">
+                  <label class="text-left text-xs font-extrabold tracking-wide text-panelText" for="nameInput">Имя / Ник</label>
+                  <input id="nameInput" class="w-full rounded-xl border border-black/20 bg-panelSoft px-3 py-2.5 text-sm text-panelText outline-none transition focus:border-black/35 focus:ring-4 focus:ring-black/10" type="text" maxlength="60" placeholder="Необязательно">
+                </div>
+
+                <div class="grid gap-1.5">
+                  <label class="text-left text-xs font-extrabold tracking-wide text-panelText" for="commentInput">Комментарий</label>
+                  <textarea id="commentInput" class="min-h-[82px] w-full resize-y rounded-xl border border-black/20 bg-panelSoft px-3 py-2.5 text-sm leading-[1.4] text-panelText outline-none transition focus:border-black/35 focus:ring-4 focus:ring-black/10" maxlength="1000" placeholder="Напишите комментарий..."></textarea>
+                </div>
+
+                <div class="flex flex-col items-stretch justify-between gap-2 sm:flex-row sm:items-center">
+                  <div class="text-left text-xs font-bold text-panelText/80">Ctrl + Enter</div>
+                  <button id="sendBtn" class="min-h-10 rounded-full bg-navy px-4 py-2 text-sm font-extrabold text-gold shadow-soft transition hover:-translate-y-px hover:bg-navy2 disabled:cursor-not-allowed disabled:opacity-60" type="button">Отправить</button>
+                </div>
+              </div>
+
+              <div id="status" class="min-h-4 pt-1 text-left text-xs font-extrabold text-panelText"></div>
+            </div>
+
+            <div class="rounded-2xl border border-black/10 bg-white/10 p-3">
+              <div class="mb-2 flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center">
+                <h2 id="currentLessonTitle" class="m-0 text-left text-lg font-extrabold text-panelText"></h2>
+                <div id="metaInfo" class="rounded-full border border-black/10 bg-white/45 px-3 py-1 text-xs font-bold text-panelText/85">0 • 3с</div>
+              </div>
+              <div id="comments" class="grid min-h-[80px] gap-2"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="mt-6 flex items-center justify-center pb-2">
+      <img class="h-auto max-w-[140px] opacity-95 sm:max-w-[180px]" src="./img/logo2.png" alt="Логотип 2" onerror="this.style.display='none'">
+    </footer>
+  </div>
+
+  <div id="reloadOverlay" class="reload-overlay" aria-hidden="true">
+    <div class="w-[min(92vw,360px)] rounded-[18px] border border-black/15 bg-gold2 px-4 py-5 text-center text-panelText shadow-[0_18px_40px_rgba(0,0,0,.28)]">
+      <div class="mx-auto mb-3 h-[46px] w-[46px] animate-spinSlow rounded-full border-4 border-black/20 border-t-navy"></div>
+      <div class="mb-1 text-base font-extrabold">Комментарий отправляется</div>
+      <div id="reloadSub" class="text-sm font-bold text-panelText/80">Обновляем страницу… 4с</div>
+    </div>
+  </div>
+
+  <script>
+    const CONFIG = {
+      formAction: "https://docs.google.com/forms/d/e/1FAIpQLSdd28t0n2GXXOv4XOMUr-WAiRpSlBdCv6sfolVbJSFzyFf8Fg/formResponse",
+      csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT5jBEeKrtDo-uyk9Cwtvsy9u9APjAnnlzdlc4ACfQThH_vcawSFdiwgb5Gg9XHU-_G40b8Eb_FOY00/pub?gid=453751927&single=true&output=csv",
+      fields: {
+        lesson: "entry.1563581279",
+        name: "entry.1299891478",
+        comment: "entry.1991102895"
+      },
+      lessons: [
+        { id: "L1", speaker: "Марущак Ольга Валентиновна", title: "Представление результатов выполнения расчетных задач средствами деловой графики" },
+        { id: "L2", speaker: "Зубкова Елена Владимировна", title: "Методы обучения детей движениям" },
+        { id: "L3", speaker: "Суслина Наталия Александровна", title: "Методы и средства руководства играми детей" },
+        { id: "L4", speaker: "Лазаренко Лада Владимировна", title: "Россия XIII веке: От Петра до Екатерины - становление империи." },
+        { id: "L5", speaker: "Зорина Татьяна Михайловна", title: "Использование комбинаций многогранников и тел вращения в практико-ориентированных задачах" },
+        { id: "L6", speaker: "Евтеева Светлана Владимировна", title: "Ф.М. Достоевский. Глубина философской мысли в произведениях автора" }
+      ],
+      refreshMs: 3000,
+      icons: [
+        "./img/icon-users.png",
+        "./img/icon-cap.png",
+        "./img/icon-book.png",
+        "./img/icon-book-2.png"
+      ]
+    };
+
+    let currentLesson = new URLSearchParams(location.search).get("lesson") || (CONFIG.lessons[0] && CONFIG.lessons[0].id) || "L1";
+    if (!getLessonById(currentLesson)) currentLesson = (CONFIG.lessons[0] && CONFIG.lessons[0].id) || "L1";
+
+    let isLoading = false;
+    let lastServerSignature = "";
+    let pollTimer = null;
+    const commentNodeMap = new Map();
+    const cacheKeyPrefix = "mk_comments_cache_";
+
+    const lessonButtonsEl = document.getElementById("lessonButtons");
+    const formTitleEl = document.getElementById("formTitle");
+    const currentLessonTitleEl = document.getElementById("currentLessonTitle");
+    const metaInfoEl = document.getElementById("metaInfo");
+    const commentsEl = document.getElementById("comments");
+    const nameInputEl = document.getElementById("nameInput");
+    const commentInputEl = document.getElementById("commentInput");
+    const sendBtnEl = document.getElementById("sendBtn");
+    const statusEl = document.getElementById("status");
+    const reloadOverlayEl = document.getElementById("reloadOverlay");
+    const reloadSubEl = document.getElementById("reloadSub");
+
+    function getLessonById(id) {
+      return CONFIG.lessons.find(l => l.id === id) || null;
+    }
+
+    function lessonFullOneLine(lesson) {
+      return `${lesson.speaker} — ${lesson.title}`;
+    }
+
+    function renderLessonButtons() {
+      lessonButtonsEl.innerHTML = "";
+
+      CONFIG.lessons.forEach((lesson, i) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = [
+          "topic-card",
+          "group",
+          "relative",
+          "flex",
+          "min-h-[172px]",
+          "w-full",
+          "rounded-[22px]",
+          "border",
+          "border-[rgba(231,217,188,.10)]",
+          "p-3",
+          "text-left",
+          "text-gold",
+          "shadow-card",
+          "sm:aspect-square",
+          "sm:min-h-[210px]",
+          "sm:p-4",
+          lesson.id === currentLesson ? "active" : ""
+        ].join(" ");
+
+        const icon = CONFIG.icons[i % CONFIG.icons.length] || "";
+        btn.innerHTML = `
+          <div class="grid h-full w-full grid-rows-[auto_1fr] gap-2 sm:gap-3">
+            <div class="flex items-start justify-between gap-2 sm:gap-3">
+              <img class="topic-icon h-8 w-8 shrink-0 object-contain sm:h-11 sm:w-11" src="${icon}" alt="" onerror="this.style.visibility='hidden'">
+              <span class="shrink-0 rounded-full border border-white/10 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.18em] text-gold/75 sm:text-[10px]">митап</span>
+            </div>
+            <div class="flex min-h-0 flex-col justify-start gap-1.5 text-left">
+              <div class="min-h-[2.5rem] text-[10px] font-bold uppercase leading-[1.2] tracking-[0.12em] text-gold/75 sm:min-h-[3rem] sm:text-xs">${escapeHtml(lesson.speaker)}</div>
+              <div class="text-[13px] font-extrabold leading-[1.22] break-words sm:text-[15px] sm:leading-[1.26]">${escapeHtml(lesson.title)}</div>
+            </div>
+          </div>
+        `;
+
+        btn.addEventListener("click", () => {
+          if (lesson.id === currentLesson) return;
+
+          currentLesson = lesson.id;
+          lastServerSignature = "";
+          commentNodeMap.clear();
+
+          updateLessonLabels();
+          renderLessonButtons();
+          loadFromCache();
+          loadComments(true);
+
+          const url = new URL(location.href);
+          url.searchParams.set("lesson", lesson.id);
+          history.replaceState({}, "", url.toString());
+        });
+
+        lessonButtonsEl.appendChild(btn);
+      });
+    }
+
+    function updateLessonLabels() {
+      const lesson = getLessonById(currentLesson);
+      const speaker = lesson ? lesson.speaker : currentLesson;
+      const title = lesson ? lesson.title : currentLesson;
+
+      formTitleEl.textContent = `Оставить комментарий • ${speaker}`;
+      currentLessonTitleEl.textContent = title;
+      setStatus("");
+    }
+
+    function setStatus(text, type = "") {
+      statusEl.textContent = text || "";
+      if (type === "ok") statusEl.className = "min-h-4 pt-1 text-left text-xs font-extrabold text-emerald-700";
+      else if (type === "err") statusEl.className = "min-h-4 pt-1 text-left text-xs font-extrabold text-rose-700";
+      else statusEl.className = "min-h-4 pt-1 text-left text-xs font-extrabold text-panelText";
+    }
+
+    function formatTime(value) {
+      if (!value) return "";
+      const d = new Date(value);
+      if (isNaN(d.getTime())) return String(value);
+      return d.toLocaleString("ru-RU");
+    }
+
+    function normalizeHeader(s) {
+      return String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    renderLessonButtons();
+    updateLessonLabels();
+    loadFromCache();
+    loadComments(true);
+
+    pollTimer = setInterval(() => {
+      if (!document.hidden) loadComments(false);
+    }, CONFIG.refreshMs);
+
+    sendBtnEl.addEventListener("click", submitComment);
+    commentInputEl.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") submitComment();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) loadComments(false);
+    });
+
+    async function submitComment() {
+      const name = nameInputEl.value.trim();
+      const comment = commentInputEl.value.trim();
+
+      if (!comment) {
+        setStatus("Пустой комментарий.", "err");
+        commentInputEl.focus();
+        return;
+      }
+
+      sendBtnEl.disabled = true;
+      setStatus("Отправка...");
+
+      try {
+        const params = new URLSearchParams();
+        const lessonObj = getLessonById(currentLesson);
+        params.append(CONFIG.fields.lesson, lessonObj ? lessonObj.id : currentLesson);
+        params.append(CONFIG.fields.name, name || "Anonymous");
+        params.append(CONFIG.fields.comment, comment);
+
+        await fetch(CONFIG.formAction, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+          },
+          body: params.toString()
+        });
+
+        commentInputEl.value = "";
+        setStatus("Отправлено.", "ok");
+        showReloadOverlayAndRefresh(4);
+        return;
+      } catch (e) {
+        console.error(e);
+        setStatus("Ошибка отправки.", "err");
+      } finally {
+        if (!reloadOverlayEl.classList.contains("show")) {
+          sendBtnEl.disabled = false;
+          nameInputEl.disabled = false;
+          commentInputEl.disabled = false;
+        }
+      }
+    }
+
+    function showReloadOverlayAndRefresh(seconds = 4) {
+      try { clearInterval(pollTimer); } catch {}
+
+      sendBtnEl.disabled = true;
+      nameInputEl.disabled = true;
+      commentInputEl.disabled = true;
+
+      reloadOverlayEl.classList.add("show");
+      reloadOverlayEl.setAttribute("aria-hidden", "false");
+
+      let left = seconds;
+      reloadSubEl.textContent = `Обновляем страницу… ${left}с`;
+
+      const tick = setInterval(() => {
+        left -= 1;
+        if (left > 0) reloadSubEl.textContent = `Обновляем страницу… ${left}с`;
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(tick);
+        const url = new URL(location.href);
+        url.searchParams.set("lesson", currentLesson);
+        url.searchParams.set("_r", String(Date.now()));
+        location.replace(url.toString());
+      }, seconds * 1000);
+    }
+
+    async function loadComments(force = false) {
+      if (isLoading) return;
+      isLoading = true;
+
+      try {
+        const url = CONFIG.csvUrl + (CONFIG.csvUrl.includes("?") ? "&" : "?") + "_ts=" + Date.now();
+        const res = await fetch(url, { cache: "no-store" });
+        const csvText = await res.text();
+
+        const rows = parseCSV(csvText);
+        if (!rows.length) {
+          renderComments([]);
+          return;
+        }
+
+        const headers = rows[0].map(normalizeHeader);
+        const dataRows = rows.slice(1);
+
+        let idxTimestamp = headers.findIndex(h => h.includes("timestamp"));
+        let idxLesson = headers.findIndex(h => h.includes("lesson"));
+        let idxName = headers.findIndex(h => h.includes("name") || h.includes("nickname"));
+        let idxComment = headers.findIndex(h => h.includes("comment"));
+
+        if (idxTimestamp < 0) idxTimestamp = 0;
+        if (idxLesson < 0) idxLesson = 1;
+        if (idxName < 0) idxName = 2;
+        if (idxComment < 0) idxComment = 3;
+
+        const comments = [];
+        for (const row of dataRows) {
+          const lessonRaw = String(row[idxLesson] || "").trim();
+          const cur = getLessonById(currentLesson);
+          const curLabel = cur ? lessonFullOneLine(cur) : "";
+          if (lessonRaw !== currentLesson && lessonRaw !== curLabel) continue;
+
+          const textComment = String(row[idxComment] || "").trim();
+          if (!textComment) continue;
+
+          comments.push({
+            timestamp: row[idxTimestamp] || "",
+            lesson: lessonRaw,
+            name: String(row[idxName] || "").trim() || "Anonymous",
+            comment: textComment
+          });
+        }
+
+        comments.reverse();
+
+        const signature = JSON.stringify(comments);
+        if (!force && signature === lastServerSignature) return;
+        lastServerSignature = signature;
+
+        saveToCache(comments);
+        renderComments(comments);
+      } catch (e) {
+        console.error("Load comments error:", e);
+      } finally {
+        isLoading = false;
+      }
+    }
+
+    function getCacheKey() {
+      return cacheKeyPrefix + currentLesson;
+    }
+
+    function saveToCache(comments) {
+      try {
+        sessionStorage.setItem(getCacheKey(), JSON.stringify({
+          t: Date.now(),
+          comments
+        }));
+      } catch {}
+    }
+
+    function loadFromCache() {
+      try {
+        const raw = sessionStorage.getItem(getCacheKey());
+        if (!raw) {
+          renderComments([]);
+          return;
+        }
+        const parsed = JSON.parse(raw);
+        if (!parsed || !Array.isArray(parsed.comments)) {
+          renderComments([]);
+          return;
+        }
+        renderComments(parsed.comments);
+      } catch {
+        renderComments([]);
+      }
+    }
+
+    function commentKey(c) {
+      return `${c.timestamp}__${c.name}__${c.comment}`;
+    }
+
+    function createCommentNode(c) {
+      const wrap = document.createElement("div");
+      wrap.className = "comment-new rounded-2xl border border-black/10 bg-panelSoft px-3 py-2.5 shadow-soft";
+
+      const top = document.createElement("div");
+      top.className = "mb-1 flex flex-wrap items-start justify-between gap-2";
+
+      const name = document.createElement("div");
+      name.className = "text-left text-sm font-extrabold text-panelText";
+
+      const time = document.createElement("div");
+      time.className = "whitespace-nowrap text-xs text-panelText/65";
+
+      const text = document.createElement("div");
+      text.className = "text-left text-sm leading-[1.4] text-[#232743] whitespace-pre-wrap break-words";
+
+      top.appendChild(name);
+      top.appendChild(time);
+      wrap.appendChild(top);
+      wrap.appendChild(text);
+
+      wrap._nameEl = name;
+      wrap._timeEl = time;
+      wrap._textEl = text;
+
+      wrap.addEventListener("animationend", () => {
+        wrap.classList.remove("comment-new");
+      }, { once: true });
+
+      updateCommentNode(wrap, c);
+      return wrap;
+    }
+
+    function updateCommentNode(node, c) {
+      const newName = c.name || "Anonymous";
+      const newTime = formatTime(c.timestamp);
+      const newText = c.comment || "";
+
+      if (node._nameEl.textContent !== newName) node._nameEl.textContent = newName;
+      if (node._timeEl.textContent !== newTime) node._timeEl.textContent = newTime;
+      if (node._textEl.textContent !== newText) node._textEl.textContent = newText;
+    }
+
+    function renderComments(comments) {
+      metaInfoEl.textContent = `${comments.length} • ${Math.round(CONFIG.refreshMs / 1000)}с`;
+
+      if (!comments.length) {
+        commentsEl.innerHTML = '<div class="rounded-xl border border-dashed border-black/20 bg-[rgba(248,244,236,.75)] p-3 text-left text-sm font-bold text-panelText/75">Нет комментариев</div>';
+        commentNodeMap.clear();
+        return;
+      }
+
+      if (commentsEl.querySelector('[data-empty="1"]')) {
+        commentsEl.innerHTML = "";
+      }
+      if (commentsEl.textContent.trim() === 'Нет комментариев') {
+        commentsEl.innerHTML = "";
+      }
+
+      const nextKeys = new Set();
+      const orderedNodes = [];
+
+      for (const c of comments) {
+        const key = commentKey(c);
+        nextKeys.add(key);
+
+        let node = commentNodeMap.get(key);
+        if (!node) {
+          node = createCommentNode(c);
+          commentNodeMap.set(key, node);
+        } else {
+          updateCommentNode(node, c);
+        }
+
+        orderedNodes.push(node);
+      }
+
+      for (const [key, node] of commentNodeMap.entries()) {
+        if (!nextKeys.has(key)) {
+          node.remove();
+          commentNodeMap.delete(key);
+        }
+      }
+
+      let cursor = commentsEl.firstChild;
+      for (const node of orderedNodes) {
+        if (node !== cursor) {
+          commentsEl.insertBefore(node, cursor);
+        } else {
+          cursor = cursor.nextSibling;
+        }
+      }
+
+      while (commentsEl.childNodes.length > orderedNodes.length) {
+        commentsEl.removeChild(commentsEl.lastChild);
+      }
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let i = 0;
+      let inQuotes = false;
+
+      while (i < text.length) {
+        const ch = text[i];
+        const next = text[i + 1];
+
+        if (inQuotes) {
+          if (ch === '"' && next === '"') {
+            cell += '"';
+            i += 2;
+            continue;
+          }
+          if (ch === '"') {
+            inQuotes = false;
+            i++;
+            continue;
+          }
+          cell += ch;
+          i++;
+          continue;
+        }
+
+        if (ch === '"') {
+          inQuotes = true;
+          i++;
+          continue;
+        }
+
+        if (ch === ',') {
+          row.push(cell);
+          cell = "";
+          i++;
+          continue;
+        }
+
+        if (ch === '\r') {
+          if (next === '\n') {
+            row.push(cell);
+            rows.push(row);
+            row = [];
+            cell = "";
+            i += 2;
+          } else {
+            row.push(cell);
+            rows.push(row);
+            row = [];
+            cell = "";
+            i++;
+          }
+          continue;
+        }
+
+        if (ch === '\n') {
+          row.push(cell);
+          rows.push(row);
+          row = [];
+          cell = "";
+          i++;
+          continue;
+        }
+
+        cell += ch;
+        i++;
+      }
+
+      row.push(cell);
+      rows.push(row);
+
+      while (rows.length && rows[rows.length - 1].every(v => v === "")) {
+        rows.pop();
+      }
+
+      return rows;
+    }
+  </script>
+</body>
+</html>
